@@ -1,0 +1,5 @@
+.DS_Store
+Desktop.ini
+node_modules/
+public/
+Thumbs.db
