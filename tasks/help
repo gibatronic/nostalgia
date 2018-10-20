@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+echo ''
+echo '  Usage:'
+echo '    make <target>'
+echo ''
+echo '  Targets:'
+npx make-help -p 4 Makefile
+echo ''

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+main() {
+	local input='client/scripts/main.js'
+	local output='public/scripts/main.js'
+
+	local options=(
+		"--devtool=source-map"
+		"--entry=./$input"
+		"--mode=production"
+		"--output=./$output"
+	)
+
+	npx webpack "${options[@]}"
+}
+
+main

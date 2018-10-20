@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+main() {
+	local input='client/styles/main.scss'
+	local output='public/styles/main.css'
+
+	local options=(
+		'--style=compressed'
+		"$input:$output"
+	)
+
+	npx sass "${options[@]}"
+}
+
+main

@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+get_data() {
+	local script_source=$1
+	local style_source=$2
+
+	local script_hash=$(get_hash < "public/$script_source")
+	local style_hash=$(get_hash < "public/$style_source")
+
+	cat <<-EOF
+		{
+			"script": {
+				"hash": "$script_hash",
+				"source": "$script_source"
+			},
+			"style": {
+				"hash": "$style_hash",
+				"source": "$style_source"
+			}
+		}
+	EOF
+}
+
+get_hash() {
+	echo -n 'sha384-'
+	openssl dgst -sha384 -binary | openssl base64 -A
+}
+
+main() {
+	local input='client/templates/main.mustache'
+	local output='public/main.html'
+	local output_buffer="$output.buffer"
+
+	local script='scripts/main.js'
+	local style='styles/main.css'
+
+	local data=$(get_data "$script" "$style")
+
+	local options_mustache=(
+		'-'
+		"$input"
+		"$output_buffer"
+	)
+
+	local options_html_minifier=(
+		'--collapse-whitespace'
+		'--remove-comments'
+		"$output_buffer"
+	)
+
+	npx mustache "${options_mustache[@]}" <<< "$data"
+	npx html-minifier "${options_html_minifier[@]}" > "$output"
+	rm "$output_buffer"
+}
+
+main
