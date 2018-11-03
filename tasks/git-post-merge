@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+main() {
+	source .env
+
+	if [ "$ENVIRONMENT" != 'production' ]; then
+		return 0
+	fi
+
+	make stop
+	npm ci
+	make start
+}
+
+main

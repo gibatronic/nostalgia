@@ -2,10 +2,12 @@
 
 .PHONY: build \
 				clean \
-				images \
 				help \
-				run \
+				images \
+				restart \
 				scripts \
+				start \
+				stop \
 				styles \
 				templates \
 				watch
@@ -30,13 +32,21 @@ images:
 help:
 	tasks/help
 
-# start the server
-run: build
-	tasks/run
+# kill and run the server again
+restart: stop \
+				 start
 
 # build scripts
 scripts:
 	tasks/scripts
+
+# run the server
+start: build
+	tasks/start
+
+# kill the server
+stop:
+	tasks/stop
 
 # build styles
 styles:
