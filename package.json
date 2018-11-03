@@ -3,12 +3,13 @@
     "flickr-sdk": "3.7.0"
   },
   "devDependencies": {
+    "dotenv": "6.1.0",
     "express": "4.16.4",
     "html-minifier": "3.5.20",
+    "imagemin-cli": "3.0.0",
     "make-help": "1.0.2",
     "mustache": "3.0.0",
     "sass": "1.14.3",
-    "svgo": "1.1.1",
     "webpack": "4.21.0",
     "webpack-cli": "3.1.2"
   },
