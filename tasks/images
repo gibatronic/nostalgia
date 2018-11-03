@@ -1,14 +1,12 @@
 #!/usr/bin/env bash
 
-
 main() {
-	local options_svgo=(
-		'--folder=client/images'
-		'--output=public/images'
+	local options=(
+		'client/images/*'
+		'--out-dir=public/images'
 	)
 
-	mkdir -p public/images
-	npx svgo "${options_svgo[@]}"
+	npx imagemin "${options[@]}"
 }
 
 main

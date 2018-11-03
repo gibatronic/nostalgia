@@ -1,1 +1,56 @@
 #!/usr/bin/env bash
+
+clean() {
+	echo
+	kill $(jobs -pr)
+	wait
+}
+
+images() {
+	fswatch -0 'client/images' | xargs -0 -n 1 tasks/images
+}
+
+main() {
+	trap 'clean' 'SIGINT' 'SIGTERM'
+
+	images &
+	scripts &
+	styles &
+	templates &
+	run &
+
+	wait
+}
+
+run() {
+	tasks/run &
+	local pid="$!"
+
+	while read -d '' event; do
+		kill "$pid"
+		wait "$pid"
+		sleep 1
+		tasks/run &
+		pid="$!"
+	done < <(fswatch -0 'server')
+}
+
+scripts() {
+	while read -d '' event; do
+		tasks/scripts
+		tasks/templates
+	done < <(fswatch -0 'client/scripts')
+}
+
+styles() {
+	while read -d '' event; do
+		tasks/styles
+		tasks/templates
+	done < <(fswatch -0 'client/styles')
+}
+
+templates() {
+	fswatch -0 'client/templates' | xargs -0 -n 1 tasks/templates
+}
+
+main "$@"

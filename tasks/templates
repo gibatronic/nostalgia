@@ -26,6 +26,16 @@ get_hash() {
 	openssl dgst -sha384 -binary | openssl base64 -A
 }
 
+get_partials() {
+	while read template; do
+		if [ "$template" = 'client/templates/main.mustache' ]; then
+			continue
+		fi
+
+		echo "-p $template"
+	done < <(find client/templates -name '*.mustache')
+}
+
 main() {
 	local input='client/templates/main.mustache'
 	local output='public/main.html'
@@ -38,6 +48,7 @@ main() {
 
 	local options_mustache=(
 		'-'
+		$(get_partials)
 		"$input"
 		"$output_buffer"
 	)

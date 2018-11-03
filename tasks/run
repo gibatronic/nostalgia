@@ -1,3 +1,14 @@
 #!/usr/bin/env bash
 
-node server/main.js
+clean() {
+	kill $(jobs -pr)
+	wait
+}
+
+main() {
+	trap 'clean' 'SIGINT' 'SIGTERM'
+	server/main.js &
+	wait
+}
+
+main
