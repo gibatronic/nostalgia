@@ -1,19 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg version="1.1" viewBox="0 0 512 512" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" height="512px" width="512px">
-  <defs>
-    <circle id="path-1" cx="256" cy="256" r="128"></circle>
-    <filter x="-75.0%" y="-75.0%" width="250.0%" height="250.0%" filterUnits="objectBoundingBox" id="filter-2">
-      <feMorphology radius="32" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
-      <feOffset dx="0" dy="0" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
-      <feGaussianBlur stdDeviation="32" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-      <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.25 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
-    </filter>
-  </defs>
-  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-    <circle id="circle" fill="#9B59B6" fill-rule="nonzero" cx="256" cy="256" r="256"></circle>
-    <g id="circle" fill-rule="nonzero">
-      <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
-      <use fill="#8E44AD" xlink:href="#path-1"></use>
-    </g>
-  </g>
+<svg version="1.1" viewBox="0 0 232 232" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="232px" height="232px">
+  <path d="M116.355339,62.6446609 C135.881554,43.1184463 167.539803,43.1184463 187.066017,62.6446609 C206.592232,82.1708756 206.592232,113.829124 187.066017,133.355339 L116.355339,204.066017 L45.6446609,133.355339 C26.1184463,113.829124 26.1184464,82.1708756 45.644661,62.6446609 C65.1708756,43.1184463 96.8291245,43.1184463 116.355339,62.6446609 Z" fill="#9B59B6" />
 </svg>
