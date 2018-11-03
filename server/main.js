@@ -6,7 +6,7 @@ const express = require('express');
 const photos = require('./photos');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 function listening() {
   process.stdout.write(`listening on port ${port}\n`);
