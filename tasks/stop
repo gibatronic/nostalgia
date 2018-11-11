@@ -1,19 +1,15 @@
 #!/usr/bin/env bash
 
+source '.env'
+
 main() {
-	local pid="$(ps | grep 'server/main.js' | grep -v grep | tr -s ' ' '\t' | cut -f 1)"
+	while read pid; do
+		kill "$pid"
 
-	if [ -z "$pid" ]; then
-		return 1
-	fi
-
-	kill "$pid"
-
-	while ps -p "$pid" &> /dev/null; do
-		sleep 0.2
-	done
-
-	echo 'yo'
+		while ps -p "$pid" &> /dev/null; do
+			sleep 0.2
+		done
+	done < <(pgrep -f "$COMMAND_SERVER")
 }
 
 main

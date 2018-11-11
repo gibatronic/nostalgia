@@ -17,22 +17,14 @@ main() {
 	scripts &
 	styles &
 	templates &
-	run &
+	start &
 
 	wait
 }
 
-run() {
-	tasks/run &
-	local pid="$!"
-
-	while read -d '' event; do
-		kill "$pid"
-		wait "$pid"
-		sleep 1
-		tasks/run &
-		pid="$!"
-	done < <(fswatch -0 'server')
+restart() {
+	tasks/stop
+	tasks/start &
 }
 
 scripts() {
@@ -40,6 +32,11 @@ scripts() {
 		tasks/scripts
 		tasks/templates
 	done < <(fswatch -0 'client/scripts')
+}
+
+start() {
+	restart
+	fswatch -0 'server' | xargs -0 -n 1 restart
 }
 
 styles() {

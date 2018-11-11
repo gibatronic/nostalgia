@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
 
-clean() {
-	kill $(jobs -pr)
-	wait
-}
+source '.env'
 
 main() {
-	trap 'clean' 'SIGINT' 'SIGTERM'
-	server/main.js &
+	trap 'tasks/stop' 'SIGINT' 'SIGTERM'
+	$COMMAND_SERVER &
 	wait
 }
 
