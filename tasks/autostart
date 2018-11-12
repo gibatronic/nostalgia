@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+clean() {
+	echo
+	kill $(jobs -pr)
+	wait
+}
+
+browser() {
+	local options=(
+		--app=http://localhost:8080/
+		--kiosk
+	)
+
+	chromium-browser "${options[@]}" &
+}
+
+get_base_path() {
+  [ -h "$0" ] && resolve_link "$0" || resolve_path "$0"
+}
+
+has_changes() {
+	local shasum="$(shasum 'package-lock.json')"
+	local shasum_file='package-lock.shasum'
+
+	if shasum -c "$shasum_file"; then
+		return '1'
+	fi
+
+	echo "$shasum" > "$shasum_file"
+
+	return '0'
+}
+
+resolve_link() {
+  resolve_path "$(readlink "$1")"
+}
+
+resolve_path() {
+  echo "$(cd "$(dirname "$1")/.."; pwd -P)"
+}
+
+server() {
+	make stop
+	has_changes && npm ci
+	make build
+	make start &
+}
+
+main() {
+	cd "$(get_base_path)"
+	source '.env'
+
+	if [ "$ENVIRONMENT" != 'production' ]; then
+		return 0
+	fi
+
+	trap 'clean' 'SIGINT' 'SIGTERM'
+
+	server
+	browser
+}
+
+main

@@ -41,7 +41,7 @@ scripts:
 	tasks/scripts
 
 # run the server
-start: build
+start:
 	tasks/start
 
 # kill the server
