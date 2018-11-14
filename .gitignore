@@ -1,3 +1,4 @@
+*.shasum
 .DS_Store
 .env
 Desktop.ini
