@@ -19,6 +19,10 @@ class Photo {
       this.size = this.sizes.find(size => size.label === 'Large 1600');
 
       if (this.size === undefined) {
+        this.size = this.sizes.find(size => size.label === 'Original');
+      }
+
+      if (this.size === undefined) {
         reject(`Photo #${this.data.id}: doesn't have required size.`);
 
         return;

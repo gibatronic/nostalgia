@@ -6,7 +6,11 @@ class Photos {
   };
 
   load() {
-    return Promise.all(this.collection.map(photo => photo.load()));
+    return Promise.all(this.collection.map(this.loadPhoto));
+  };
+
+  loadPhoto(photo) {
+    return photo.load().catch(reason => console.error(reason));
   };
 };
 
