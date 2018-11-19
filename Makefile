@@ -2,6 +2,7 @@
 
 .PHONY: build \
 				clean \
+				debug \
 				help \
 				images \
 				restart \
@@ -23,6 +24,10 @@ build: images \
 # remove built assets
 clean:
 	tasks/clean
+
+# create an ssh tunel to open DevTools
+debug:
+	tasks/debug
 
 # build images
 images:
