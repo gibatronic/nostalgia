@@ -8,11 +8,13 @@ clean() {
 
 browser() {
 	local options=(
-		--app=http://localhost:8080/
+		--app=http://localhost:$PORT/
 		--kiosk
+		--remote-debugging-port=9222
 	)
 
-	chromium-browser "${options[@]}" &
+	pkill -f -- "$COMMAND_BROWSER"
+	"$COMMAND_BROWSER" "${options[@]}" &
 }
 
 get_base_path() {
