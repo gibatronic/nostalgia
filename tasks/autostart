@@ -1,16 +1,10 @@
 #!/usr/bin/env bash
 
-clean() {
-	echo
-	kill $(jobs -pr)
-	wait
-}
-
 browser() {
 	local options=(
-		--app=http://localhost:$PORT/
-		--kiosk
-		--remote-debugging-port=9222
+		"--app=http://localhost:$PORT/"
+		'--kiosk'
+		'--remote-debugging-port=9222'
 	)
 
 	pkill -f -- "$COMMAND_BROWSER"
@@ -22,16 +16,13 @@ get_base_path() {
 }
 
 has_changes() {
-	local shasum="$(shasum 'package-lock.json')"
-	local shasum_file='package-lock.shasum'
-
-	if shasum -c "$shasum_file"; then
-		return '1'
+	if shasum -c 'package-lock.shasum'; then
+		return '0'
 	fi
 
-	echo "$shasum" > "$shasum_file"
+	shasum 'package-lock.json' > 'package-lock.shasum'
 
-	return '0'
+	return '1'
 }
 
 resolve_link() {
@@ -54,10 +45,8 @@ main() {
 	source '.env'
 
 	if [ "$ENVIRONMENT" != 'production' ]; then
-		return 0
+		return '0'
 	fi
-
-	trap 'clean' 'SIGINT' 'SIGTERM'
 
 	server
 	browser

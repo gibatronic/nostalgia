@@ -7,9 +7,8 @@ main() {
 		return 0
 	fi
 
-	make stop
-	npm ci
-	make start
+	export DISPLAY=':0'
+	nohup tasks/autostart < /dev/null &> ~/autostart.log &
 }
 
 main
