@@ -22,7 +22,7 @@ async function main() {
   window.presenter = new Presenter(photos.collection.filter(photo => photo.loaded));
 
   presenter.start({
-    interval: 15000
+    interval: 900000 // 15 min
   });
 };
 
